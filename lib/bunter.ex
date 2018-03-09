@@ -4,8 +4,8 @@ defmodule Bunter do
   @background [
     ["#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
     ["#", "#", "#", "#","~", "~", "~", "~","~", "~", "~", "~","~", "#", "#", "n"],
-    ["#", "#", "#", "#","~", "~", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
-    ["#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "n"]
+    ["#", "^", "^", "#","~", "~", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
+    ["#", "^", "^", "^","^", "^", "#", "#","#", "#", "#", "#","#", "#", "#", "n"]
   ]
 
   @fps 5
@@ -31,17 +31,6 @@ defmodule Bunter do
     hello()
   end
 
-  def canvas(index) do
-    bg = @background
-    newrow = Enum.at(bg, 3)
-
-    newrow = List.replace_at(newrow, rem(-index, newrow |> length), '@')
-    IO.write "####A##STORY####"
-
-    bg = List.replace_at(bg, 2, newrow)
-    Enum.join(bg, "\n")
-  end
-
   def draw_char("#") do
     [Enum.random(@colors), :bright,'#']
     |> Bunt.ANSI.format
@@ -54,6 +43,12 @@ defmodule Bunter do
   end
   def draw_char("n") do
     IO.puts ""
+  end
+
+  def draw_char("^") do
+    [Enum.random([:chocolate, :olive]), '^']
+    |> Bunt.ANSI.format
+    |> IO.write 
   end
  
   def draw_frame([head]) do
