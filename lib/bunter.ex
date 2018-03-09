@@ -2,35 +2,33 @@ defmodule Bunter do
 
   @colors [:red, :blue, :green, :orange, :gold, :moccasin, :darkorange, :coral, :darkmagenta]
   @background [
-    ['#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#'],
-    ['#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#'],
-    ['#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#'],
-    ['#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#','#', '#', '#', '#']
+    ["#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
+    ["#", "#", "#", "#","~", "~", "~", "~","~", "~", "~", "~","~", "#", "#", "n"],
+    ["#", "#", "#", "#","~", "~", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
+    ["#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "n"]
   ]
+
+  @fps 5
+
+  # @char_to_letter %{0 => "#", 3 => 1 => "2"}
+
   def hello do
     clear()
-    recurse_ok('Hello', 20)
+    draw_loop(30)
   end
 
   def frame_end do
-    :timer.sleep(200)
+    :timer.sleep(div(1000, @fps))
     clear()
   end
-
 
   def clear do
     IO.write [IO.ANSI.clear, IO.ANSI.home]
     IO.write [?\r, ?\n]
   end
 
-  
-
   def main(args) do
     hello()
-  end
-
-  def background_to_string do
-    Enum.join(@background, "\n")
   end
 
   def canvas(index) do
@@ -38,25 +36,44 @@ defmodule Bunter do
     newrow = Enum.at(bg, 3)
 
     newrow = List.replace_at(newrow, rem(-index, newrow |> length), '@')
-    IO.puts "####A##STORY####"
+    IO.write "####A##STORY####"
 
     bg = List.replace_at(bg, 2, newrow)
     Enum.join(bg, "\n")
   end
 
-
-  def recurse_ok(msg, n) when n <= 1 do
-    [:lightgray, n |> canvas]
+  def draw_char("#") do
+    [Enum.random(@colors), :bright,'#']
     |> Bunt.ANSI.format
-    |> IO.puts 
+    |> IO.write 
   end
-  def recurse_ok(msg, n) do
-
-    [Enum.random(@colors), :bright, n |>canvas]
+  def draw_char("~") do
+    [Enum.random([:darkblue, :deepskyblue]), :bright,'~']
     |> Bunt.ANSI.format
-    |> IO.puts 
+    |> IO.write 
+  end
+  def draw_char("n") do
+    IO.puts ""
+  end
+ 
+  def draw_frame([head]) do
+    draw_char(head)
+  end
+
+  def draw_frame([head | tail]) do
+    draw_char(head)
+    draw_frame(tail)
+  end
+
+  def draw_loop(n) when n <= 1 do
     frame_end()
-    
-    recurse_ok(msg, n - 1)
   end
+  def draw_loop(n) do
+    bg = List.flatten(@background)
+    draw_frame(bg)
+    frame_end()
+    draw_loop(n-1)
+  end
+
 end
+
