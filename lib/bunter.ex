@@ -2,19 +2,19 @@ defmodule Bunter do
 
   @colors [:red, :blue, :green, :orange, :gold, :moccasin, :darkorange, :coral, :darkmagenta]
   @background [
-    ["#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
-    ["#", "#", "#", "#","~", "~", "~", "~","~", "~", "~", "~","~", "#", "#", "n"],
-    ["#", "^", "^", "#","~", "~", "#", "#","#", "#", "#", "#","#", "#", "#", "n"],
-    ["#", "^", "^", "^","^", "^", "#", "#","#", "#", "#", "#","#", "#", "#", "n"]
+    ["Y", "Y", "▧", ".",".", ".", ".", ".",".", ".", ".", ".",".", ".", "Y", "n"],
+    ["Y", ".", ".", ".","~", "~", "~", "~","~", "~", "~", "~","~", ".", ".", "n"],
+    [".", "^", "^", ".","~", "~", ".", ".",".", ".", "Y", "Y",".", "Y", ".", "n"],
+    [".", "^", "^", "^","^", "^", ".", ".",".", ".", "Y", "Y",".", ".", "█", "n"]
   ]
 
   @fps 5
 
-  # @char_to_letter %{0 => "#", 3 => 1 => "2"}
+  # @char_to_letter %{0 => ".", 3 => 1 => "2"}
 
   def hello do
     clear()
-    draw_loop(30)
+    draw_loop(50)
   end
 
   def frame_end do
@@ -23,32 +23,43 @@ defmodule Bunter do
   end
 
   def clear do
-    IO.write [IO.ANSI.clear, IO.ANSI.home]
-    IO.write [?\r, ?\n]
+    Bunt.write [IO.ANSI.clear, IO.ANSI.home]
+    Bunt.write [?\r, ?\n]
   end
 
   def main(args) do
     hello()
   end
 
-  def draw_char("#") do
-    [Enum.random(@colors), :bright,'#']
-    |> Bunt.ANSI.format
-    |> IO.write 
+  def draw_char(".") do
+    [Enum.random([:color94]), :bright,'.']
+    |> Bunt.write 
   end
   def draw_char("~") do
     [Enum.random([:darkblue, :deepskyblue]), :bright,'~']
-    |> Bunt.ANSI.format
-    |> IO.write 
+    |> Bunt.write 
   end
   def draw_char("n") do
     IO.puts ""
   end
+  def draw_char("█") do
+    [Enum.random([:darkblue, :mediumblue]),'█']
+    |> Bunt.write 
+  end
+  def draw_char("▧") do
+    [:bright, Enum.random([:red]),'▧']
+    |> Bunt.write 
+  end
+
+  def draw_char("Y") do
+    [Enum.random([ :darkgreen]), 'Y']
+    |> Bunt.write 
+  end
+  
 
   def draw_char("^") do
     [Enum.random([:chocolate, :olive]), '^']
-    |> Bunt.ANSI.format
-    |> IO.write 
+    |> Bunt.write 
   end
  
   def draw_frame([head]) do
