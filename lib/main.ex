@@ -1,4 +1,4 @@
-defmodule Bunter do
+defmodule Main do
 
   @colors [:red, :blue, :green, :orange, :gold, :moccasin, :darkorange, :coral, :darkmagenta]
   @background [
@@ -12,10 +12,6 @@ defmodule Bunter do
 
   # @char_to_letter %{0 => ".", 3 => 1 => "2"}
 
-  def hello do
-    clear()
-    draw_loop(50)
-  end
 
   def frame_end do
     :timer.sleep(div(1000, @fps))
@@ -28,7 +24,7 @@ defmodule Bunter do
   end
 
   def main(args) do
-    hello()
+    draw_loop(50)
   end
 
   def draw_char(".") do
@@ -76,8 +72,8 @@ defmodule Bunter do
   end
   def draw_loop(n) do
     bg = List.flatten(@background)
-    draw_frame(bg)
     frame_end()
+    draw_frame(bg)
     draw_loop(n-1)
   end
 
