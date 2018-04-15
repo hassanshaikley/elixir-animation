@@ -1,8 +1,8 @@
-defmodule ElitutTest do
+defmodule AnimationTest do
   use ExUnit.Case
-  doctest Elitut
+  doctest Animation
 
   test "greets the world" do
-    assert Elitut.hello() == :world
+    assert Animation.hello() == :world
   end
 end
