@@ -3,13 +3,11 @@ defmodule Main do
   @background [
     ["Y", "Y", "▧", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "Y", "n"],
     ["Y", ".", ".", ".", "~", "~", "~", "~", "~", "~", "~", "~", "~", ".", ".", "n"],
-    [".", "^", "^", ".", "~", "~", ".", ".", ".", ".", "Y", "Y", ".", "Y", ".", "n"],
-    [".", "^", "^", "^", "^", "^", ".", ".", ".", ".", "Y", "Y", ".", ".", "█", "n"]
+    [".", "A", "A", ".", "~", "~", ".", ".", ".", ".", "Y", "Y", ".", "Y", ".", "n"],
+    [".", "A", "A", "A", "A", "A", ".", ".", ".", ".", "Y", "Y", ".", ".", ".", "n"]
   ]
 
   @fps 5
-
-  # @char_to_letter %{0 => ".", 3 => 1 => "2"}
 
   def frame_end do
     :timer.sleep(div(1000, @fps))
@@ -22,7 +20,7 @@ defmodule Main do
   end
 
   def main(args) do
-    draw_loop(50)
+    draw_loop(100)
   end
 
   def draw_char(".") do
@@ -39,11 +37,6 @@ defmodule Main do
     IO.puts("")
   end
 
-  def draw_char("█") do
-    [Enum.random([:darkblue, :mediumblue]), '█']
-    |> Bunt.write()
-  end
-
   def draw_char("▧") do
     [:bright, Enum.random([:red]), '▧']
     |> Bunt.write()
@@ -54,8 +47,8 @@ defmodule Main do
     |> Bunt.write()
   end
 
-  def draw_char("^") do
-    [Enum.random([:chocolate, :olive]), '^']
+  def draw_char("A") do
+    [Enum.random([:chocolate]), 'A']
     |> Bunt.write()
   end
 
