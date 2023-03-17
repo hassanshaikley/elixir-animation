@@ -3,7 +3,5 @@ defmodule Worldgen do
   @width 40
 
   def gen do
-    
   end
-
 end
